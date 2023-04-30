@@ -44,3 +44,11 @@
     flex-wrap: wrap;
 }
 
+.filter-buttons{
+    margin: 10px;
+}
+
+.filter-rating{
+    margin: 5px;
+}
+
