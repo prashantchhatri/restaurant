@@ -1,13 +1,48 @@
 import RestaurantCard from './RestaurantCard';
 import restList from '../utils/mockData';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 
 const Body = () => {
 
     let [listOfRestaurant, setListOfRestaurant] = useState(restList);
+    let [searchText, setSearchText] = useState('');
+
+    useEffect(() => {
+        getSwiggyData();
+    },[]);
+
+    async function getSwiggyData(){
+        const data = await fetch('https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.8386481&lng=78.7733286&page_type=DESKTOP_WEB_LISTING');
+        const result = await data.json();
+        // console.log(result.data.cards[1].data.data.cards);
+        setListOfRestaurant(result.data.cards[1].data.data.cards);
+    }
+
     return(
         <div className="body">
+            <div className='search-container'>
+                <input
+                    type='text'
+                    className='search-input'
+                    placeholder='search'
+                    value={searchText}
+                    onChange={(e) => {
+                        setSearchText(e.target.value);
+                    } }
+                />
+                <button 
+                className='search-btn'
+                onClick={() => {
+                    let restraurant = listOfRestaurant.filter(
+                        (res) => res.data.name.includes(searchText)
+                        ); 
+                        setListOfRestaurant(restraurant);               
+                    }
+                }
+                > Search </button>
+            </div>
+
             <div className="filter-buttons">
                 <button 
                 className='filter-rating' 
