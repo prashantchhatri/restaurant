@@ -1,11 +1,12 @@
-import RestaurantCard from './RestaurantCard';
-import restList from '../utils/mockData';
-import { useState, useEffect } from "react";
+import RestaurantCard from './RestaurantCard'; //default import
+// import restList from '../utils/mockData';
+import { useState, useEffect } from "react"; //named import
+import Shimmer from './Shimmer';
 
 
 const Body = () => {
 
-    let [listOfRestaurant, setListOfRestaurant] = useState(restList);
+    let [listOfRestaurant, setListOfRestaurant] = useState([]);
     let [searchText, setSearchText] = useState('');
 
     useEffect(() => {
@@ -15,8 +16,12 @@ const Body = () => {
     async function getSwiggyData(){
         const data = await fetch('https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.8386481&lng=78.7733286&page_type=DESKTOP_WEB_LISTING');
         const result = await data.json();
-        // console.log(result.data.cards[1].data.data.cards);
-        setListOfRestaurant(result.data.cards[1].data.data.cards);
+        // console.log(result.data.cards[2].data.data.cards);
+        setListOfRestaurant(result?.data?.cards[2]?.data?.data?.cards); //optional chaining
+    }
+
+    if(listOfRestaurant.length === 0){
+        return <Shimmer/> ;
     }
 
     return(
@@ -40,7 +45,9 @@ const Body = () => {
                         setListOfRestaurant(restraurant);               
                     }
                 }
-                > Search </button>
+                > 
+                Search 
+                </button>
             </div>
 
             <div className="filter-buttons">
