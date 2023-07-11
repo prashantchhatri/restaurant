@@ -5,7 +5,7 @@ import Body from './Body'
 import About from "./About";
 import Contact from "./Contact";
 import Error from "./Error";
-import { RouterProvider, createBrowserRouter } from "react-router-dom"
+import { RouterProvider, createBrowserRouter, Outlet } from "react-router-dom"
 
 // heading = React.createElement("h1", {id: "heading"}, "Hello World From React!!");
 
@@ -13,7 +13,7 @@ const AppLayout = () => {
     return(
     <div className="app">
         <Header/>
-        <Body/>
+        <Outlet/>
     </div>
     );
 }
@@ -22,16 +22,22 @@ const appRouter = createBrowserRouter([
     {
         path: "/",
         element: <AppLayout/>,
+        children: [
+            {
+                path: "/",
+                element: <Body/>
+            },
+            {
+                path: "/about",
+                element: <About/>
+            },
+            {
+                path: "/contact",
+                element: <Contact/>
+            }
+        ],
         errorElement: <Error/>
     },
-    {
-        path: "/about",
-        element: <About/>
-    },
-    {
-        path: "/contact",
-        element: <Contact/>
-    }
 ])
 
 root = ReactDOM.createRoot(document.getElementById('root'));
