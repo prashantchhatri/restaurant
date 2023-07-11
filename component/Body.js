@@ -5,6 +5,7 @@ import Shimmer from "./Shimmer";
 
 const Body = () => {
   let [listOfRestaurant, setListOfRestaurant] = useState([]);
+  let [filteredRestraurant, setFilteredRestraurant] = useState([]);
   let [searchText, setSearchText] = useState("");
 
   useEffect(() => {
@@ -18,6 +19,7 @@ const Body = () => {
     const result = await data.json();
     // console.log(result.data.cards[2].data.data.cards);
     setListOfRestaurant(result?.data?.cards[2]?.data?.data?.cards); //optional chaining
+    setFilteredRestraurant(result?.data?.cards[2]?.data?.data?.cards); 
   }
   // console.log(listOfRestaurant.length == 0);
   //conditional rendering
@@ -38,10 +40,10 @@ const Body = () => {
         <button
           className="search-btn"
           onClick={() => {
-            let restraurant = listOfRestaurant.filter((res) =>
-              res.data.name.includes(searchText)
+            let filteredRestraurant = listOfRestaurant.filter((res) =>
+              res.data.name.toLowerCase().includes(searchText.toLowerCase())
             );
-            setListOfRestaurant(restraurant);
+            setFilteredRestraurant(filteredRestraurant);
           }}
         >
           Search
@@ -74,7 +76,7 @@ const Body = () => {
         </button>
       </div>
       <div className="res-container">
-        {listOfRestaurant.map((restaurant) => (
+        {filteredRestraurant.map((restaurant) => (
           <RestaurantCard key={restaurant.data.id} resData={restaurant} />
         ))}
       </div>
