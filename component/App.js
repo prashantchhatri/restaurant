@@ -4,7 +4,7 @@ import Header from './Header'
 import Body from './Body'
 import About from "./About";
 import Contact from "./Contact";
-import Error from "./Eroor";
+import Error from "./Error";
 import { RouterProvider, createBrowserRouter } from "react-router-dom"
 
 // heading = React.createElement("h1", {id: "heading"}, "Hello World From React!!");
