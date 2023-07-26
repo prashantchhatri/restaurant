@@ -6,6 +6,7 @@ import About from "./About";
 import Contact from "./Contact";
 import Error from "./Error";
 import { RouterProvider, createBrowserRouter, Outlet } from "react-router-dom"
+import { createRoot } from 'react-dom/client';
 
 // heading = React.createElement("h1", {id: "heading"}, "Hello World From React!!");
 
@@ -40,5 +41,6 @@ const appRouter = createBrowserRouter([
     },
 ])
 
-root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById('root'));
+// const root = createRoot(document.getElementById('root')!);
 root.render(<RouterProvider router={appRouter}/>);
