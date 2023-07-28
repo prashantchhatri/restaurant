@@ -8,6 +8,7 @@ import Error from "./Error";
 import { RouterProvider, createBrowserRouter, Outlet } from "react-router-dom";
 import RestaurantMenu from "./RestaurantMenu";
 
+
 const AppLayout = () => {
     return(
     <div className="app">
@@ -43,5 +44,6 @@ const appRouter = createBrowserRouter([
     },
 ])
 
-root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById('root'));
+// const root = createRoot(document.getElementById('root')!);
 root.render(<RouterProvider router={appRouter}/>);
